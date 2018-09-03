@@ -1,11 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const axiosRetry = require('axios-retry');
 const app = express();
 
 app.get('/', (req, res) => res.send('Hi'));
 
 app.use(bodyParser.json());
+
+axiosRetry(axios, { retries: 3 });
 
 app.post('/batch', (req, res) => {
   const endpoint = req.body.endpoint;
