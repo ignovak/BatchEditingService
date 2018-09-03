@@ -8,13 +8,13 @@ app.get('/', (req, res) => res.send('Hi'));
 
 app.use(bodyParser.json());
 
-axiosRetry(axios, { retries: 3 });
+axiosRetry(axios, { retries: 1 });
 
 app.post('/batch', (req, res) => {
   const endpoint = req.body.endpoint;
   Promise.all(
-    req.body.payload.map(item => {
-      const url = endpoint.url + '/' + item.userId;
+    req.body.payloads.map(item => {
+      const url = endpoint.url.replace(/{(\w+)}/g, (_, param) => item[param]);
       return axios({
         url: url,
         method: endpoint.verb,

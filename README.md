@@ -25,9 +25,9 @@ curl -X POST \
   -d '{
 	"endpoint": {
 		"verb": "PUT",
-		"url": "https://guesty-user-service.herokuapp.com/user"
+		"url": "https://guesty-user-service.herokuapp.com/user/{userId}"
 	},
-	"payload": [
+	"payloads": [
 		{
 			"userId": "14",
 			"requestBody": {
