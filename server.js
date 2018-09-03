@@ -17,9 +17,15 @@ app.post('/batch', (req, res) => {
         method: endpoint.verb,
         data: item.requestBody
       }).then(response => {
-        return response.data;
+        return {
+          status: response.status,
+          data: response.data
+        };
       }).catch(error => {
-        console.error(error.status);
+        return {
+          status: error.response.status,
+          data: error.response.statusText
+        };
       });
     })
   ).then(response => {
